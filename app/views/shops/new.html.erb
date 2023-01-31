@@ -1,0 +1,18 @@
+<div class="container mt-3" >
+  <h1>Add a shop</h1>
+  <%= simple_form_for(@shop) do |f| %>
+    <%= f.input :name %>
+    <% Schedule::WEEKDAYS.each do |day| %>
+      <%= f.simple_fields_for :schedules do |schedule| %>
+        <%= schedule.input :closed %>
+        <%= schedule.input :multiple_slots %>
+        <%= schedule.input :open_at %>
+        <%= schedule.input :close_at %>
+        <%= schedule.input :open_at_ms %>
+        <%= schedule.input :close_at_ms %>
+        <%= schedule.input :weekday, input_html: { value: day }  %>
+      <% end %>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</div>

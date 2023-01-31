@@ -1,0 +1,7 @@
+<h1><%= @shop.name%></h1>
+
+<% @schedules_array.each do |sh|%>
+  <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %>, <%= sh.open_at_ms.strftime("%k:%M") %> : <%= sh.close_at_ms.strftime("%k:%M") %> <br>
+<% end %>
+
+<%= link_to "Shops list", shops_path, class: "btn btn-primary" %> <br>
