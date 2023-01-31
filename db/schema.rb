@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_31_140352) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_31_140822) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "schedules", force: :cascade do |t|
+    t.time "open_at"
+    t.time "close_at"
+    t.string "weekday"
+    t.boolean "closed"
+    t.boolean "multiple_slots"
+    t.time "open_at_ms"
+    t.time "close_at_ms"
+    t.bigint "shop_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_schedules_on_shop_id"
+  end
 
   create_table "shops", force: :cascade do |t|
     t.string "name"
@@ -20,4 +34,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_140352) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "schedules", "shops"
 end
