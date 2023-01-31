@@ -1,7 +1,25 @@
 <h1><%= @shop.name%></h1>
 
-<% @schedules_array.each do |sh|%>
-  <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %>, <%= sh.open_at_ms.strftime("%k:%M") %> : <%= sh.close_at_ms.strftime("%k:%M") %> <br>
+<% @schedules_array.rotate(days[today.to_sym]).each_with_index do |sh, i|%>
+  <% if i == 0 %>
+    <b>
+    <% if sh.closed %>
+      <%= sh.weekday%> : Fermé! <br>
+    <% elsif sh.multiple_slots %>
+      <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %> - <%= sh.open_at_ms.strftime("%k:%M") %> : <%= sh.close_at_ms.strftime("%k:%M") %> <br>
+    <% else %>
+      <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %> <br>
+    <% end %>
+    </b>
+  <% else %>
+      <% if sh.closed %>
+      <%= sh.weekday%> : Fermé! <br>
+    <% elsif sh.multiple_slots %>
+      <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %> - <%= sh.open_at_ms.strftime("%k:%M") %> : <%= sh.close_at_ms.strftime("%k:%M") %> <br>
+    <% else %>
+      <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %> <br>
+    <% end %>
+  <% end %>
 <% end %>
 
 <%= link_to "Shops list", shops_path, class: "btn btn-primary" %> <br>
