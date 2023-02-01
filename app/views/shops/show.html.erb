@@ -3,8 +3,11 @@
     <div>
       <h1><%= @shop.name%></h1>
       <table>
+        <%# we modify schedules_array to reorder the days depending on the current day (we put current day in first) %>
+        <%# days and today are helpers %>
         <% @schedules_array.rotate(days[today.to_sym]).each_with_index do |sh, i|%>
           <tr>
+          <%# if i ==0 then today the current weekday and we display the shop information in bold%>
             <% if i == 0 %>
               <% if sh.closed %>
                 <th>Horaires : </th>
@@ -13,6 +16,7 @@
               <% elsif sh.multiple_slots %>
                 <th>Horaires : </th>
                 <th><%= sh.weekday%></th>
+                <%# time fields are modified to only display hours:minutes %>
                 <th> <%= sh.open_at.strftime("%k:%M") %>-<%= sh.close_at.strftime("%k:%M") %>, <%= sh.open_at_ms.strftime("%k:%M") %>-<%= sh.close_at_ms.strftime("%k:%M") %></th>
               <% else %>
                 <th>Horaires : </th>

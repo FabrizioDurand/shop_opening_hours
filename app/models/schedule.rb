@@ -1,12 +1,8 @@
 class Schedule < ApplicationRecord
   belongs_to :shop
 
-  WEEKDAYS = %w[lundi mardi mercredi jeudi vendredi samedi dimanche]
-
-  # on vérifie si close coché -> ça passe
-  # si horaire nil ou open>close et close non coché -> ça passe pas
-
-  # Check close status, if checked validation pass.
+  # Check close status, if checked validation pass,
+  # not matter open_at or close_at fields status.
   # If not, check that open_at < close_at
   validate :simple_opening_hour
 

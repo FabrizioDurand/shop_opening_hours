@@ -1,19 +1,20 @@
 <%= simple_form_for(shop) do |f| %>
     <%= f.input :name, label: "Nom du magasin" %>
-    <%# we had a counter "count" to associate the right weekday directly%>
+    <%# we use "count" as a counter to associate the right weekday directly%>
     <% count = 0 %>
       <%= f.simple_fields_for :schedules do |schedule| %>
         <div class="my-5">
           <div class="d-flex justify-content-center">
+          <%# we display the weekdays as readonly %>
             <%= schedule.input :weekday, label: false, input_html: { value: jours.key(count), readonly: "readonly" } %>
           </div>
-
           <div class="d-flex justify-content-center mx-3">
             <div data-action="click->schedule-manager#checkIfClosed">
               <%= schedule.input :closed, label: "Jour de fermeture", input_html: { data: { target: "schedule-manager.closedDay" } } %>
             </div>
             <div data-schedule-manager-target="openingHours" class="d-flex justify-content-center mx-5">
-              <%= schedule.input :open_at, label: "Heure d'ouverture", minute_step: 15, include_blank: true, input_html: { value: "nil", data: { target: "schedule-manager.open" } } %>
+            <%# time fields are set to display minutes only by 15minutes slots %>
+              <%= schedule.input :open_at, label: "Heure d'ouverture", minute_step: 15, include_blank: true, input_html: { data: { target: "schedule-manager.open" } } %>
               <%= schedule.input :close_at, label: "Heure de fermeture", minute_step: 15, include_blank: true, input_html: { data: { target: "schedule-manager.close" } }%>
             </div>
           </div>

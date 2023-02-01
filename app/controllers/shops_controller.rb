@@ -7,6 +7,8 @@ class ShopsController < ApplicationController
 
   def show
     @schedules_array = []
+    # we save all schedules attributes of a shop in schedules_array
+    # to manipulate it in the view
     @shop.schedules.each do |sh|
       @schedules_array << sh
     end
@@ -44,7 +46,7 @@ class ShopsController < ApplicationController
   private
 
   def shops_params
-    params.require(:shop).permit(:name, schedules_attributes: [:id, :open_at, :close_at, :weekday, :closed, :multiple_slots, :open_at_ms, :close_at_ms])
+    params.require(:shop).permit(:name, schedules_attributes: %i[id open_at close_at weekday closed multiple_slots open_at_ms close_at_ms])
   end
 
   def set_shop

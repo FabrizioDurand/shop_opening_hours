@@ -23,6 +23,7 @@ module ScheduleHelper
     }
   end
 
+  # today method will return the current weekday
   def today
     Time.now.strftime("%A").downcase
   end

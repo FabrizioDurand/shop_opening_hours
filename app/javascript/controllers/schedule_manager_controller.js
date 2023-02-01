@@ -1,3 +1,5 @@
+// schedule-manager stimulus controler will manage close day and multiple slot days checkboxes
+
 import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="schedule-manager"
@@ -25,7 +27,7 @@ export default class extends Controller {
     this.checkIfClosed();
   }
 
-  // checkIfClosed method will check if the status of the closed checkbox.
+  // checkIfClosed method will check the status of the closed checkbox.
   // If it's checked, the stimulus controller will hide the opening hour fields
   // so the user cannot enter them
   checkIfClosed() {
@@ -43,8 +45,6 @@ export default class extends Controller {
 
         openingHours[i].classList.add("d-none");
         multipleSlotsCheck[i].classList.add("d-none");
-
-        // openingHours[i].classList.add("disable-div");
       } else {
         openingHours[i].classList.remove("d-none");
         multipleSlotsCheck[i].classList.remove("d-none");
