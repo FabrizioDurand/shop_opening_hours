@@ -13,7 +13,9 @@ class ShopsController < ApplicationController
 
   def new
     @shop = Shop.new
-    @shop.schedules.build
+    # Using this way (instead of an iteration directly in the view),
+    # we correct the new form duplication in Shop new when validation error
+    7.times { @shop.schedules.build }
   end
 
   def create

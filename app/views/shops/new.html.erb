@@ -2,7 +2,8 @@
   <h1>Add a shop</h1>
   <%= simple_form_for(@shop) do |f| %>
     <%= f.input :name %>
-    <% Schedule::WEEKDAYS.each do |day| %>
+    <%# we had a counter "count" to associate the right weekday directly%>
+    <% count = 0 %>
       <%= f.simple_fields_for :schedules do |schedule| %>
         <div data-action="click->schedule-manager#checkIfClosed">
           <%= schedule.input :closed, input_html: { data: { target: "schedule-manager.closedDay" } } %>
@@ -18,9 +19,9 @@
           <%= schedule.input :open_at_ms, minute_step: 15, include_blank: true %>
           <%= schedule.input :close_at_ms, minute_step: 15, include_blank: true %>
         </div>
-        <%= schedule.input :weekday, input_html: { value: day }  %>
+        <%= schedule.input :weekday, input_html: { value: jours.key(count), readonly: "readonly" } %>
+        <% count += 1 %>
       <% end %>
-    <% end %>
     <%= f.submit %>
   <% end %>
 </div>
