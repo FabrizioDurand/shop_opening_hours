@@ -13,12 +13,16 @@ export default class extends Controller {
   ];
 
   connect() {
-    console.log("connected to schedule manager controlle");
+    console.log("connected to schedule manager controller");
     // checkIfMultipleSlots method is added in the connect in case the page needs
     // to be refreshed when validation error in form.
     // In this way, if the multiple slot was checked, when the page is refreshed
     // the open_at_ms and close_at_ms are displayed back
     this.checkIfMultipleSlots();
+
+    // Same reason for checkIfClosed method in case of edit, we want the
+    // the open_at and close_at to be hidden
+    this.checkIfClosed();
   }
 
   // checkIfClosed method will check if the status of the closed checkbox.
