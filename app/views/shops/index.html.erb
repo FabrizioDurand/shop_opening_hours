@@ -1,9 +1,9 @@
 <div class="container mt-3">
   <div class=" d-flex justify-content-center">
     <div>
-      <h1> Shops list</h1>
+      <h1>Liste des magasins</h1>
       <% if @shops.empty? %>
-        <h3>No shops available, add one!</h3>
+        <h3>Pas de magasins disponible, ajoutez-en un!</h3>
       <% end %>
       <% @shops.each do |shop| %>
         <ul>
@@ -13,6 +13,6 @@
     </div>
   </div>
   <div class="mt-3 d-flex justify-content-center">
-    <%= link_to "Add a new shop", new_shop_path, class: "btn btn-primary" %>
+    <%= link_to "Ajouter un nouveau magasin", new_shop_path, class: "btn btn-primary" %>
   </div>
 </div>
