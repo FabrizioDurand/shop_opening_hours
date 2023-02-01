@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ScheduleManagerController from "./schedule_manager_controller"
+application.register("schedule-manager", ScheduleManagerController)
