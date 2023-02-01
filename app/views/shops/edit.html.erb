@@ -1,27 +1,39 @@
 <div class="container mt-3" data-controller = "schedule-manager">
-  <h1>Edit a shop</h1>
+  <h1>Edit shop</h1>
   <%= simple_form_for(@shop) do |f| %>
     <%= f.input :name %>
     <%# we had a counter "count" to associate the right weekday directly%>
     <% count = 0 %>
       <%= f.simple_fields_for :schedules do |schedule| %>
-        <div data-action="click->schedule-manager#checkIfClosed">
-          <%= schedule.input :closed, input_html: { data: { target: "schedule-manager.closedDay" } } %>
+        <div class="my-5">
+          <div class="d-flex justify-content-center">
+            <%= schedule.input :weekday, label:false, input_html: { value: jours.key(count), readonly: "readonly" } %>
+          </div>
+
+          <div class="d-flex justify-content-center mx-3">
+            <div data-action="click->schedule-manager#checkIfClosed">
+              <%= schedule.input :closed, input_html: { data: { target: "schedule-manager.closedDay" } } %>
+            </div>
+            <div data-schedule-manager-target="openingHours" class="d-flex justify-content-center mx-5">
+              <%= schedule.input :open_at, minute_step: 15, include_blank: true, input_html: { value: "nil", data: { target: "schedule-manager.open" } } %>
+              <%= schedule.input :close_at, minute_step: 15, include_blank: true, input_html: { data: { target: "schedule-manager.close" } }%>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center mx-3">
+            <div data-action="click->schedule-manager#checkIfMultipleSlots" data-schedule-manager-target="multipleSlotsCheck">
+              <%= schedule.input :multiple_slots, input_html: { data: { target: "schedule-manager.multipleSlots" } }  %>
+            </div>
+            <div data-schedule-manager-target="openingHourMs" class="d-none d-flex justify-content-center mx-5">
+              <%= schedule.input :open_at_ms, minute_step: 15, include_blank: true %>
+              <%= schedule.input :close_at_ms, minute_step: 15, include_blank: true %>
+            </div>
+          </div>
         </div>
-        <div data-action="click->schedule-manager#checkIfMultipleSlots" data-schedule-manager-target="multipleSlotsCheck">
-          <%= schedule.input :multiple_slots, input_html: { data: { target: "schedule-manager.multipleSlots" } }  %>
-        </div>
-        <div data-schedule-manager-target="openingHours">
-          <%= schedule.input :open_at, minute_step: 15, include_blank: true, input_html: { value: "nil", data: { target: "schedule-manager.open" } } %>
-          <%= schedule.input :close_at, minute_step: 15, include_blank: true, input_html: { data: { target: "schedule-manager.close" } }%>
-        </div>
-        <div data-schedule-manager-target="openingHourMs" class="d-none">
-          <%= schedule.input :open_at_ms, minute_step: 15, include_blank: true %>
-          <%= schedule.input :close_at_ms, minute_step: 15, include_blank: true %>
-        </div>
-        <%= schedule.input :weekday, input_html: { value: jours.key(count), readonly: "readonly" } %>
         <% count += 1 %>
       <% end %>
-    <%= f.submit %>
+    <div class="mb-5 text-center">
+      <%= f.submit class:"btn btn-primary"%>
+    </div>
   <% end %>
 </div>

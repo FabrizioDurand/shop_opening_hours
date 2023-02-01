@@ -1,27 +1,49 @@
-<h1><%= @shop.name%></h1>
-
-<% @schedules_array.rotate(days[today.to_sym]).each_with_index do |sh, i|%>
-  <% if i == 0 %>
-    <b>
-    <% if sh.closed %>
-      <%= sh.weekday%> : Fermé! <br>
-    <% elsif sh.multiple_slots %>
-      <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %> - <%= sh.open_at_ms.strftime("%k:%M") %> : <%= sh.close_at_ms.strftime("%k:%M") %> <br>
-    <% else %>
-      <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %> <br>
-    <% end %>
-    </b>
-  <% else %>
-      <% if sh.closed %>
-      <%= sh.weekday%> : Fermé! <br>
-    <% elsif sh.multiple_slots %>
-      <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %> - <%= sh.open_at_ms.strftime("%k:%M") %> : <%= sh.close_at_ms.strftime("%k:%M") %> <br>
-    <% else %>
-      <%= sh.weekday%> : <%= sh.open_at.strftime("%k:%M") %>  : <%= sh.close_at.strftime("%k:%M") %> <br>
-    <% end %>
-  <% end %>
-<% end %>
-
-<%= link_to "Edit shop", edit_shop_path(@shop), class: "btn btn-primary" %> <br>
-<%= link_to "Delete this shop", shop_path(@shop), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},class: "btn btn-danger" %>
-<%= link_to "Shops list", shops_path, class: "btn btn-primary" %> <br>
+<div class="container mt-3">
+  <div class=" d-flex justify-content-center">
+    <div>
+      <h1><%= @shop.name%></h1>
+      <table>
+        <% @schedules_array.rotate(days[today.to_sym]).each_with_index do |sh, i|%>
+          <tr>
+            <% if i == 0 %>
+              <% if sh.closed %>
+                <th>Horaires : </th>
+                <th><%= sh.weekday%></th>
+                <th> Fermé </th>
+              <% elsif sh.multiple_slots %>
+                <th>Horaires : </th>
+                <th><%= sh.weekday%></th>
+                <th> <%= sh.open_at.strftime("%k:%M") %>-<%= sh.close_at.strftime("%k:%M") %>, <%= sh.open_at_ms.strftime("%k:%M") %>-<%= sh.close_at_ms.strftime("%k:%M") %></th>
+              <% else %>
+                <th>Horaires : </th>
+                <th><%= sh.weekday%></th>
+                <th> <%= sh.open_at.strftime("%k:%M") %>-<%= sh.close_at.strftime("%k:%M") %></th>
+              <% end %>
+            <% else %>
+              <% if sh.closed %>
+                <td></td>
+                <td><%= sh.weekday%></td>
+                <td> Fermé </td>
+              <% elsif sh.multiple_slots %>
+                <td></td>
+                <td><%= sh.weekday%></td>
+                <td> <%= sh.open_at.strftime("%k:%M") %>-<%= sh.close_at.strftime("%k:%M") %>, <%= sh.open_at_ms.strftime("%k:%M") %>-<%= sh.close_at_ms.strftime("%k:%M") %> </td>
+              <% else %>
+                <td></td>
+                <td><%= sh.weekday%></td>
+                <td> <%= sh.open_at.strftime("%k:%M") %>-<%= sh.close_at.strftime("%k:%M") %> </td>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="mt-5 d-flex justify-content-center">
+    <%= link_to "Edit shop", edit_shop_path(@shop), class: "btn btn-primary btn-sm  mx-3" %>
+    <%= link_to "Delete shop", shop_path(@shop), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"},class: "btn btn-danger btn-sm  mx-3" %>
+  </div>
+    <div class="mt-5 d-flex justify-content-center">
+      <%= link_to "Shops list", shops_path, class: "btn btn-primary  mx-3" %>
+  </div>
+</div>

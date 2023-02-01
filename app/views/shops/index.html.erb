@@ -1,7 +1,18 @@
-<h1> Shops list</h1>
-
-<% @shops.each do |shop| %>
-  <%= link_to shop.name, shop_path(shop)%>
-<% end %>
-
-<%= link_to "Add a new shop", new_shop_path, class: "btn btn-primary" %>
+<div class="container mt-3">
+  <div class=" d-flex justify-content-center">
+    <div>
+      <h1> Shops list</h1>
+      <% if @shops.empty? %>
+        <h3>No shops available, add one!</h3>
+      <% end %>
+      <% @shops.each do |shop| %>
+        <ul>
+          <li><%= link_to shop.name, shop_path(shop)%></li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <div class="mt-3 d-flex justify-content-center">
+    <%= link_to "Add a new shop", new_shop_path, class: "btn btn-primary" %>
+  </div>
+</div>

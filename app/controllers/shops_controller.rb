@@ -21,7 +21,7 @@ class ShopsController < ApplicationController
   def create
     @shop = Shop.new(shops_params)
     if @shop.save
-      redirect_to shops_path
+      redirect_to shop_path(@shop)
     else
       render :new, status: :unprocessable_entity
     end

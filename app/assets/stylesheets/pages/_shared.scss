@@ -1,0 +1,16 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.wrapper {
+  flex: 1;
+}
+
+li {
+  list-style-type: none;
+}
+
+.center-div {
+  margin: 0 auto;
+}

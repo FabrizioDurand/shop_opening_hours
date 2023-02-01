@@ -13,7 +13,7 @@ export default class extends Controller {
   ];
 
   connect() {
-    console.log("connected to schedule manager controller");
+    console.log("connected to schedule manager controlle");
     // checkIfMultipleSlots method is added in the connect in case the page needs
     // to be refreshed when validation error in form.
     // In this way, if the multiple slot was checked, when the page is refreshed
@@ -40,8 +40,10 @@ export default class extends Controller {
     this.closedDayTargets.forEach(function (elem, i) {
       if (elem.checked) {
         console.log(open[i]);
+
         openingHours[i].classList.add("d-none");
         multipleSlotsCheck[i].classList.add("d-none");
+
         // openingHours[i].classList.add("disable-div");
       } else {
         openingHours[i].classList.remove("d-none");

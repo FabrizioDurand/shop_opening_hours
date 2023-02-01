@@ -37,7 +37,7 @@ class Schedule < ApplicationRecord
   def multiple_opening_hour_overlap
     return unless multiple_slots
 
-    if open_at_ms < close_at
+    if open_at_ms <= close_at
       errors.add(:open_at_ms, "Opening slots cannot overlap")
     end
   end
