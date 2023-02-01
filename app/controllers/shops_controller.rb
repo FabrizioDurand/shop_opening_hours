@@ -1,10 +1,11 @@
 class ShopsController < ApplicationController
+  before_action :set_shop, only: %i[show edit update destroy]
+
   def index
     @shops = Shop.all
   end
 
   def show
-    @shop = Shop.find(params[:id])
     @schedules_array = []
     @shop.schedules.each do |sh|
       @schedules_array << sh
@@ -28,17 +29,14 @@ class ShopsController < ApplicationController
   end
 
   def edit
-    @shop = Shop.find(params[:id])
   end
 
   def update
-    @shop = Shop.find(params[:id])
     @shop.update(shops_params)
     redirect_to shop_path(@shop)
   end
 
   def destroy
-    @shop = Shop.find(params[:id])
     @shop.destroy
     redirect_to(shops_path)
   end
@@ -47,5 +45,9 @@ class ShopsController < ApplicationController
 
   def shops_params
     params.require(:shop).permit(:name, schedules_attributes: [:id, :open_at, :close_at, :weekday, :closed, :multiple_slots, :open_at_ms, :close_at_ms])
+  end
+
+  def set_shop
+    @shop = Shop.find(params[:id])
   end
 end
